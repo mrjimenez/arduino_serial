@@ -1,17 +1,9 @@
 #define DEBUG 0
 
 const uint16_t MAX_BUFFER_SIZE = SERIAL_RX_BUFFER_SIZE - 1;
-//const uint32_t BLOCK_SIZE = 32 * 1024;
-const uint32_t BLOCK_SIZE = 2000 * 1024;
-//uint16_t buffer_size = 0
-uint16_t buffer_size = 240;
+const uint32_t BLOCK_SIZE = 32 * 1024L;
+uint16_t buffer_size = 0;
 uint32_t threshold = 0;
-
-void message(const __FlashStringHelper *msg)
-{
-	Serial.print(F("M"));
-	Serial.println(msg);
-}
 
 void setup()
 {
@@ -25,7 +17,7 @@ void setup()
 
 void loop()
 {
-	// Flush
+	// Flush the serial input buffer
 	Serial.flush();
 	while (Serial.available() > 0) {
 #if DEBUG
@@ -44,8 +36,8 @@ void loop()
 	}
 	snprintf(send_buffer_first, sizeof send_buffer_first, fmt, buffer_size);
 	// Choice of threshold
-	threshold = buffer_size * 3 / 4 + 1;
-	//threshold = buffer_size;
+	//threshold = buffer_size * 3 / 4 + 1;
+	threshold = buffer_size;
 	snprintf(send_buffer, sizeof send_buffer, fmt, threshold);
 	//
 	int c = -1;
@@ -68,7 +60,13 @@ void loop()
 	while (n) {
 		int a;
 		while (n && (a = Serial.available()) > 0) {
+#if DEBUG
+			Serial.print(F("Dn="));
+			Serial.println(n);
+#endif
 			c = Serial.read();
+			// Process the data
+			delayMicroseconds(50);
 #if DEBUG
 			Serial.print(F("Dc = "));
 			Serial.print(c);
