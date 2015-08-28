@@ -140,6 +140,7 @@ class Uploader(object):
                 self.print_lf()
                 print 'Unrecognized line:',\
                     line.translate(Uploader._translate_str)
+            sys.stdout.flush()
 
     def upload_all_files(self, fd_list):
         self.reset_arduino()
