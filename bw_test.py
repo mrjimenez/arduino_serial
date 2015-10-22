@@ -23,7 +23,7 @@ my_parser.add_argument(
     '-i', '--iterations',
     default=3,
     type=int,
-    help='Debug verbosity'
+    help='Number of iterations'
          ' (type %(type)s, default=%(default)s)')
 
 

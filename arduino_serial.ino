@@ -7,7 +7,10 @@ uint32_t threshold = 0;
 
 void setup()
 {
-	Serial.begin(115200);
+	Serial.begin(250000);
+	//Serial.begin(230400);
+	//Serial.begin(115200);
+	//Serial.begin(9600);
 	while (!Serial) {
 		; // wait for serial port to connect. Needed for Leonardo only
 	}
@@ -66,7 +69,7 @@ void loop()
 #endif
 			c = Serial.read();
 			// Process the data
-			delayMicroseconds(50);
+			//delayMicroseconds(1600);
 #if DEBUG
 			Serial.print(F("Dc = "));
 			Serial.print(c);
